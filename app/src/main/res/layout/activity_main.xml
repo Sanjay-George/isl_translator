@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.divyaje.voice.MainActivity">
+
+    <EditText
+        android:id="@+id/etTextHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:text="@string/etSearchHint"/>
+
+    <Button
+        android:id="@+id/btspeak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="speak"
+
+        android:text="@string/btSpeak"
+        tools:context=".VoiceRecognitionActivity" />
+
+    <Spinner
+        android:id="@+id/sNoofMatches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/saNoOfMatches"
+        android:prompt="@string/sNoOfMatches">
+
+    </Spinner>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvTextMatches"
+        android:textStyle="bold"/>
+
+ <ListView
+     android:id="@+id/lvTextMatches"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:clickable="true"
+     android:focusable="auto"
+     >
+
+ </ListView>
+
+
+</LinearLayout>

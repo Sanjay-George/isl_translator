@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "718106017322",
+    "firebase_url": "https://voice-to-sign-language.firebaseio.com",
+    "project_id": "voice-to-sign-language",
+    "storage_bucket": "voice-to-sign-language.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718106017322:android:2cf74d72488a3c1a",
+        "android_client_info": {
+          "package_name": "com.example.divyaje.voice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718106017322-gnvbjkhdtmnm713jl6n35uo6tq42q0rn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.divyaje.voice",
+            "certificate_hash": "29689b319e6d1f17279b36cd9a3ec4e36231f1aa"
+          }
+        },
+        {
+          "client_id": "718106017322-hpm3ntahgglcuac79kediucg9goqogoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnecOzEe6qib9cFsTM_mqfqHy7ir6o8Zs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718106017322-hpm3ntahgglcuac79kediucg9goqogoc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
