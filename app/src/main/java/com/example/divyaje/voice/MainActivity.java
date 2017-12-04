@@ -23,8 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -33,11 +39,10 @@ public class MainActivity extends Activity {
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
     private EditText metTextHint;
-    private ListView mlvTextMatches;
+    public ListView mlvTextMatches;
     private Spinner msTextMatches;
     private Button mbtSpeak;
-    private String textMatch;
-
+    public String textMatch;
     private DatabaseReference mDB;
 
 
@@ -49,7 +54,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         metTextHint = findViewById(R.id.etTextHint);
-        mlvTextMatches = findViewById(R.id.lvTextMatches);
+        mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
         msTextMatches = findViewById(R.id.sNoofMatches);
         mbtSpeak = findViewById(R.id.btspeak);
         checkVoiceRecognition();
@@ -150,59 +155,137 @@ public class MainActivity extends Activity {
             }
         super.onActivityResult(requestCode, resultCode, data);
 
+//         CHECK FROM HERE
         mlvTextMatches.setClickable(true);
         mlvTextMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Object o = mlvTextMatches.getItemAtPosition(position);
                 textMatch = (String)o;
-                mDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.v("HELLO", "HI");
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+//                mDB.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Log.e("HELLO", "HI");
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.e("Error message : ", "Error here 1");
+//                    }
+//                });
                 Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
-                fetchGif();
+                Log.e("Debug message : ", "Works here 1");
+                fetchGif(textMatch);
             }
         });
 
     }
 
-    private void fetchGif(){
-        Intent intent = new Intent(getApplicationContext(), showGif.class);
+//    class translationData{
+//
+//    }
 
-//        final String url = String.valueOf(new String[1]);
-        final String[] url = new String[]{""};
-        mDB.addValueEventListener(new ValueEventListener(){
+    private void fetchGif(String textMatch){
 
+        Log.e("Debug message :", "Works here 2");
 
+        mDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                url[0] = dataSnapshot.getValue(String.class);
-                Log.v("E_Value", "Hello darkness my old friend");
-//                url = (String) dataSnapshot.getValue();
-//                Log.v("E_VALUE", "Data: " + child1);
+//                Log.e("DATA TYPE : ", dataSnapshot.getClass().getName());
+                Log.e("THIS THING : ", dataSnapshot.getValue().toString());
+
+                /// START DOING FROM HERE, PEOPLE OF THIS NATION
+                // DON'T HESITATE
+                // GO FOR IT
+                // DO THIS.
+                Object myOb = new Object();
+                myOb = dataSnapshot.getValue();
+                Log.e("Test1 : ", myOb.toString());
 
 
+//                try {
+//                    JSONObject test = new JSONObject((String) dataSnapshot.getValue());
+//                    Log.e("ENGLISH", test.toString());
+//                    HashMap<String, String> meMap = new HashMap<String, String>();
+//                    meMap = dataSnapshot.getValue();
+//                    Iterator myVeryOwnIterator = meMap.keySet().iterator();
+//                    while(myVeryOwnIterator.hasNext()) {
+//                        String key=(String)myVeryOwnIterator.next();
+//                        String value=(String)meMap.get(key);
+//
+//                        Log.e("key : ", key);
+//                        Log.e("value : ", value);
+//
+////                        Toast.makeText(getApplicationContext(), "Key: "+key+" Value: "+value, Toast.LENGTH_LONG).show();
+//                    }
+////
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+//                for(dataSnapshot.getChildren()){
+//                    Log
+//                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e("Error message : ", "Error here 1");
             }
         });
-        intent.putExtra("URL", url[0]);
-        intent.putExtra("qText", textMatch);
-        startActivity(intent );
+
+
+
+//        Intent intent = new Intent(getApplicationContext(), showGif.class);
+//
+////        final String url = String.valueOf(new String[1]);
+//        final String[] url = new String[]{""};
+//
+//        ValueEventListener valueEventListener = mDB.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                Log.e("Print this d :", "This shit got printed mofoofoda fodajifidjaf odajfidajf adofj doafjadofj iajf oidj af");
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.e("Errororororo : ", "Error happened dakjf adkfjad lfkjad;fjkad; fdakf;ja; fkj da");
+//
+//            }
+//        });
+
+//        mDB.addValueEventListener(new ValueEventListener(){
+//
+//            ("Print", "hello thea efihdf iad faidjf adifj adifjdaifj adijf iajdfijdaifjidajf idjifadifjiadjfa hey");
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+////                url[0] = dataSnapshot.getValue(String.class);
+////                Log.e("E_Value", "Hello darkness my old friend");
+////                url = (String) dataSnapshot.getValue();
+////                Log.e("E_VALUE", "Data: " + child1);
+//                Log.i("this shit" , dataSnapshot.getValue().toString());
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+//
+//            }
+//        });
+//        intent.putExtra("URL", url[0]);
+//        intent.putExtra("qText", textMatch);
+//        startActivity(intent );
 
     }
-
+//
     /*  Helper method to show the toast message */
     void showToastMessage(String message){
         Toast.makeText(this, message, LENGTH_SHORT).show();
