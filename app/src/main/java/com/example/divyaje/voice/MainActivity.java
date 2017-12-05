@@ -39,10 +39,10 @@ public class MainActivity extends Activity {
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
     private EditText metTextHint;
-    public ListView mlvTextMatches;
+    private ListView mlvTextMatches;
     private Spinner msTextMatches;
     private Button mbtSpeak;
-    public String textMatch;
+    private String textMatch;
     private DatabaseReference mDB;
 
 
@@ -208,7 +208,10 @@ public class MainActivity extends Activity {
                 // TODO : URL SHOULD PROBABLY BE SET AS DATATYPE URL
                 // TODO : FETCH BASED ON THE TEXT PASSED.
 
-
+                Intent intent = new Intent(getApplicationContext(), showGif.class);
+                intent.putExtra("english", english);
+                intent.putExtra("url" , sign);
+                startActivity(intent);
 
             }
 

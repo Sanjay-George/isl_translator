@@ -2,26 +2,33 @@ package com.example.divyaje.voice;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+
 public class showGif extends AppCompatActivity {
 
-    private TextView text1;
-    private VideoView vid1;
+//    private TextView text1;
+//    private VideoView vid1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_gif);
 
-        text1 = findViewById(R.id.textView);
-        vid1 = findViewById(R.id.videoView);
+        Log.e("Test message : ", "This works");
 
-        String url = getIntent().getStringExtra("URL");
-        String qText = getIntent().getStringExtra("qText");
+        TextView text1 = (TextView) findViewById(R.id.textView);
+        VideoView video1 = (VideoView) findViewById(R.id.videoView);
 
-        text1.setText(qText);
+        String url = getIntent().getStringExtra("url");
+        String english = getIntent().getStringExtra("english");
+
+        // DISPLAY
+        text1.setText(english);
+
+
 
     }
 }
