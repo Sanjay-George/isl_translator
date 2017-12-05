@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -162,19 +163,9 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Object o = mlvTextMatches.getItemAtPosition(position);
                 textMatch = (String)o;
-//                mDB.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Log.e("HELLO", "HI");
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.e("Error message : ", "Error here 1");
-//                    }
-//                });
+
+
                 Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
-//                Log.e("Debug message : ", "Works here 1");
                 fetchGif(textMatch);
             }
         });
@@ -183,7 +174,7 @@ public class MainActivity extends Activity {
 
 
 
-    private void fetchGif(String textMatch){
+    private void fetchGif(final String textMatch){
 
 //        Log.e("Debug message :", "Works here 2");
 
@@ -198,15 +189,18 @@ public class MainActivity extends Activity {
                 String sign = null;
 
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    english = (String) messageSnapshot.child("english").getValue();
-                    sign = (String) messageSnapshot.child("url").getValue();
 
-                    Log.e("english : ", english);
-                    Log.e("url : ", sign);
+                    if (Objects.equals(((String) messageSnapshot.child("english").getValue()).replaceAll(" ", "").toLowerCase(), textMatch.replaceAll(" ", "").toLowerCase())){
+                        english = (String) messageSnapshot.child("english").getValue();
+                        sign = (String) messageSnapshot.child("url").getValue();
+
+                        Log.e("english : ", english);
+                        Log.e("url : ", sign);
+                    }
+
+
+
                 }
-
-                // TODO : URL SHOULD PROBABLY BE SET AS DATATYPE URL
-                // TODO : FETCH BASED ON THE TEXT PASSED.
 
                 Intent intent = new Intent(getApplicationContext(), showGif.class);
                 intent.putExtra("english", english);
@@ -223,51 +217,6 @@ public class MainActivity extends Activity {
 
 
 
-//        Intent intent = new Intent(getApplicationContext(), showGif.class);
-//
-////        final String url = String.valueOf(new String[1]);
-//        final String[] url = new String[]{""};
-//
-//        ValueEventListener valueEventListener = mDB.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                Log.e("Print this d :", "This shit got printed mofoofoda fodajifidjaf odajfidajf adofj doafjadofj iajf oidj af");
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.e("Errororororo : ", "Error happened dakjf adkfjad lfkjad;fjkad; fdakf;ja; fkj da");
-//
-//            }
-//        });
-
-//        mDB.addValueEventListener(new ValueEventListener(){
-//
-//            ("Print", "hello thea efihdf iad faidjf adifj adifjdaifj adijf iajdfijdaifjidajf idjifadifjiadjfa hey");
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-////                url[0] = dataSnapshot.getValue(String.class);
-////                Log.e("E_Value", "Hello darkness my old friend");
-////                url = (String) dataSnapshot.getValue();
-////                Log.e("E_VALUE", "Data: " + child1);
-//                Log.i("this shit" , dataSnapshot.getValue().toString());
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//
-//            }
-//        });
-//        intent.putExtra("URL", url[0]);
-//        intent.putExtra("qText", textMatch);
-//        startActivity(intent );
 
     }
 //

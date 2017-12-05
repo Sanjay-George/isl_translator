@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,8 +43,13 @@ public class showGif extends AppCompatActivity {
         Bitmap image;
 
         try {
-            image = task.execute(url).get();
-            image1.setImageBitmap(image);
+            if(url != null){
+                image = task.execute(url).get();
+                image1.setImageBitmap(image);
+            }
+            else{
+                text1.setText("Sorry, word not found!");
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
