@@ -174,60 +174,42 @@ public class MainActivity extends Activity {
 //                    }
 //                });
                 Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
-                Log.e("Debug message : ", "Works here 1");
+//                Log.e("Debug message : ", "Works here 1");
                 fetchGif(textMatch);
             }
         });
 
     }
 
-//    class translationData{
-//
-//    }
+
 
     private void fetchGif(String textMatch){
 
-        Log.e("Debug message :", "Works here 2");
+//        Log.e("Debug message :", "Works here 2");
 
         mDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                Log.e("DATA TYPE : ", dataSnapshot.getClass().getName());
-                Log.e("THIS THING : ", dataSnapshot.getValue().toString());
+//                Log.e("THIS THING : ", dataSnapshot.getValue().toString());
 
-                /// START DOING FROM HERE, PEOPLE OF THIS NATION
-                // DON'T HESITATE
-                // GO FOR IT
-                // DO THIS.
-                Object myOb = new Object();
-                myOb = dataSnapshot.getValue();
-                Log.e("Test1 : ", myOb.toString());
+                // CODE FOR FETCHING FROM DATABASE
+                String english = null;
+                String sign = null;
+
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    english = (String) messageSnapshot.child("english").getValue();
+                    sign = (String) messageSnapshot.child("url").getValue();
+
+                    Log.e("english : ", english);
+                    Log.e("url : ", sign);
+                }
+
+                // TODO : URL SHOULD PROBABLY BE SET AS DATATYPE URL
+                // TODO : FETCH BASED ON THE TEXT PASSED.
 
 
-//                try {
-//                    JSONObject test = new JSONObject((String) dataSnapshot.getValue());
-//                    Log.e("ENGLISH", test.toString());
-//                    HashMap<String, String> meMap = new HashMap<String, String>();
-//                    meMap = dataSnapshot.getValue();
-//                    Iterator myVeryOwnIterator = meMap.keySet().iterator();
-//                    while(myVeryOwnIterator.hasNext()) {
-//                        String key=(String)myVeryOwnIterator.next();
-//                        String value=(String)meMap.get(key);
-//
-//                        Log.e("key : ", key);
-//                        Log.e("value : ", value);
-//
-////                        Toast.makeText(getApplicationContext(), "Key: "+key+" Value: "+value, Toast.LENGTH_LONG).show();
-//                    }
-////
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
 
-//                for(dataSnapshot.getChildren()){
-//                    Log
-//                }
             }
 
             @Override
