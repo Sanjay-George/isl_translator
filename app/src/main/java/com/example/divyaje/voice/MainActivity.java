@@ -38,12 +38,13 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class MainActivity extends Activity {
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
-    private EditText metTextHint;
+//    private EditText metTextHint;
     private ListView mlvTextMatches;
     private Spinner msTextMatches;
     private Button mbtSpeak;
     private String textMatch;
     private DatabaseReference mDB;
+    private String promptText = "Speak now";
 
 
 
@@ -53,7 +54,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        metTextHint = findViewById(R.id.etTextHint);
+//        metTextHint = findViewById(R.id.etTextHint);
         mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
         msTextMatches = findViewById(R.id.sNoofMatches);
         mbtSpeak = findViewById(R.id.btspeak);
@@ -86,8 +87,7 @@ public class MainActivity extends Activity {
                 .getPackage().getName());
 
         // Display an hint to the user about what he should say.
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, metTextHint.getText()
-                .toString());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, promptText);
 
         // Given an hint to the recognizer about what the user is going to say
         //There are two form of language model available

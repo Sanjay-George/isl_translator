@@ -7,47 +7,56 @@
     android:orientation="vertical"
     tools:context="com.example.divyaje.voice.MainActivity">
 
-    <EditText
-        android:id="@+id/etTextHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:lines="1"
-        android:text="@string/etSearchHint"/>
-
     <Button
         android:id="@+id/btspeak"
+        style="@android:style/Widget.Holo.Button.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="speak"
 
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:elevation="0dp"
+        android:onClick="speak"
         android:text="@string/btSpeak"
         tools:context=".VoiceRecognitionActivity" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:text="Choose options"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/sNoofMatches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:entries="@array/saNoOfMatches"
         android:prompt="@string/sNoOfMatches">
 
     </Spinner>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
         android:text="@string/tvTextMatches"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
- <ListView
-     android:id="@+id/lvTextMatches"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:clickable="true"
-     android:focusable="auto"
-     >
+    <ListView
+        android:id="@+id/lvTextMatches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="auto">
 
- </ListView>
+    </ListView>
 
 
 </LinearLayout>
