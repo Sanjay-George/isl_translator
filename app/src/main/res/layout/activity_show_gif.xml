@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.divyaje.voice.showGif">
 
-    <VideoView
-        android:id="@+id/videoView"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="415dp"
-        android:layout_alignParentStart="true"
+        android:layout_height="400dp"
         android:layout_alignParentTop="true"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        app:srcCompat="@drawable/common_full_open_on_phone" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/videoView"
+        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="16dp"
         android:paddingHorizontal="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
