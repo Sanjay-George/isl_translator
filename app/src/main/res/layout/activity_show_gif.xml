@@ -26,7 +26,7 @@
         android:capitalize="none"
         android:gravity="center"
         android:paddingHorizontal="10dp"
-        android:text="Thank you"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 </android.widget.RelativeLayout>

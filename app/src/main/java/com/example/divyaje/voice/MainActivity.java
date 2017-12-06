@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
                 textMatch = (String)o;
 
 
-                Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
                 fetchGif(textMatch);
             }
         });
@@ -215,7 +215,7 @@ public class MainActivity extends Activity {
     //
     /*  Helper method to show the toast message */
     void showToastMessage(String message){
-        Toast.makeText(this, message, LENGTH_SHORT).show();
+        //Toast.makeText(this, message, LENGTH_SHORT).show();
     }
 
 

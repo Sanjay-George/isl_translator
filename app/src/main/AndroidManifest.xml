@@ -15,13 +15,20 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_voice_recognition">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".showGif" android:label="Voice Recognition"></activity>
+        <activity android:name=".SplashScreen" android:label="Voice Recognition">
+
+
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+
+
+        </activity>
     </application>
 
 </manifest>
