@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':ion-master', ':android-support-v4', ':gson-2.2.4', ':photo-view'

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,14 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -39,7 +32,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class MainActivity extends Activity {
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
-//    private EditText metTextHint;
+    //    private EditText metTextHint;
     private ListView mlvTextMatches;
     private Spinner msTextMatches;
     private Button mbtSpeak;
@@ -219,7 +212,7 @@ public class MainActivity extends Activity {
 
 
     }
-//
+    //
     /*  Helper method to show the toast message */
     void showToastMessage(String message){
         Toast.makeText(this, message, LENGTH_SHORT).show();

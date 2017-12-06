@@ -1,20 +1,12 @@
 package com.example.divyaje.voice;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
+import com.koushikdutta.ion.Ion;
 
 
 public class showGif extends AppCompatActivity {
@@ -36,10 +28,20 @@ public class showGif extends AppCompatActivity {
         String english = getIntent().getStringExtra("english");
 
         // DISPLAY
-        text1.setText(english);
 
+        if(url!=null)
+        {
+            text1.setText(english);
+            Ion.with(image1).load(url);
+        }
+        else
+        {
+            text1.setText("Sorry, word not found!");
+        }
+
+        Log.e("display","Image in Ion");
         // DOWNLOAD IMG
-        ImageDownloader task = new ImageDownloader();
+        /*ImageDownloader task = new ImageDownloader();
         Bitmap image;
 
         try {
@@ -54,12 +56,12 @@ public class showGif extends AppCompatActivity {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }
 
-    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+    /*public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
 
@@ -81,6 +83,6 @@ public class showGif extends AppCompatActivity {
 
             return null;
         }
-    }
+    }*/
 
 }

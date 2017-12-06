@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'com.android.library'
+
+dependencies {
+    compile 'com.android.support:support-v4:+'
+    compile project(':AndroidAsync:AndroidAsync')
+    compile 'com.google.code.gson:gson:2.3'
+
+    // Use play services if the linking app is using it. When play services isn't available
+    // ConscryptMiddleware will throw ClassNotFoundErrors upon attempting to load it at runtime.
+    // Conscrypt will fail to load, and the system SSL stack will be used.
+    // "provided" means the library is provided by the platform. Typically this is used for 
+    // actual platform libraries like framework.jar. But this is a clever way of having a soft
+    // dependency to play services.
+    provided 'com.google.android.gms:play-services-base:10.+'
+
+    // for when i wanna test this against gms conscrypt
+    androidTestCompile 'com.google.android.gms:play-services-base:10.+'
+
+    // mockito nom nom oh god im drunk
+    androidTestCompile "org.mockito:mockito-core:1.+"
+    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
+}
+
+android {
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+
+            java {
+                srcDir 'src/'
+            }
+        }
+        androidTest.java.srcDirs=['test/src/']
+        androidTest.res.srcDirs=['test/res/']
+        androidTest.assets.srcDirs=['test/assets/']
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        targetSdkVersion 23
+        minSdkVersion 14
+    }
+
+    compileSdkVersion project.hasProperty('global_compileSdkVersion') ? global_compileSdkVersion : 25
+    buildToolsVersion project.hasProperty('global_buildToolsVersion') ? global_buildToolsVersion : '25.0.2'
+}
+
+// upload to maven task
+if (System.getenv().I_AM_KOUSH == 'true') {
+    apply from: 'https://raw.githubusercontent.com/koush/mvn-repo/master/maven.gradle'
+
+    apply plugin: 'maven'
+    apply plugin: 'signing'
+
+    afterEvaluate { project ->
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    pom*.whenConfigured { pom ->
+                        pom.dependencies.removeAll { dep -> dep.artifactId == 'support-v4' }
+                    }
+                }
+            }
+        }
+    }
+}
