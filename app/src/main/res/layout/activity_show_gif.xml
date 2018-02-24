@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blueback"
+    android:background="#000000"
     tools:context="com.example.divyaje.voice.showGif">
 
     <ImageView
@@ -24,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:capitalize="none"
+        android:textColor="#ffffff"
         android:gravity="center"
         android:paddingHorizontal="10dp"
 

@@ -24,9 +24,10 @@ public class showGif extends AppCompatActivity {
         TextView text1 = (TextView) findViewById(R.id.textView);
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
 
-        String url = getIntent().getStringExtra("url");
+        String url = getIntent().getStringExtra("sign");
         String english = getIntent().getStringExtra("english");
-
+        //Log.e("sign",url);
+        //Log.e("english",english);
         // DISPLAY
 
         if(url!=null)

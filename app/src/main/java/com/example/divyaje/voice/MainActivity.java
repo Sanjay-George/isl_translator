@@ -5,23 +5,28 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,10 +41,10 @@ public class MainActivity extends Activity {
     private ListView mlvTextMatches;
     private Spinner msTextMatches;
     private Button mbtSpeak;
-    private String textMatch;
-    private DatabaseReference mDB;
+    public String textMatch;
     private String promptText = "Speak now";
-
+    public String result;
+    public String text;
 
 
     @Override
@@ -55,7 +60,7 @@ public class MainActivity extends Activity {
         checkVoiceRecognition();
 
         /*Initialize database reference*/
-        mDB = FirebaseDatabase.getInstance().getReference();
+
 
     }
 
@@ -111,7 +116,7 @@ public class MainActivity extends Activity {
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
 
             //If Voice recognition is successful then it returns RESULT_OK
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 
                 ArrayList<String> textMatchList = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -122,7 +127,7 @@ public class MainActivity extends Activity {
                     if (textMatchList.get(0).contains("search")) {
 
                         String searchQuery = textMatchList.get(0);
-                        searchQuery = searchQuery.replace("search","");
+                        searchQuery = searchQuery.replace("search", "");
                         Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
                         search.putExtra(SearchManager.QUERY, searchQuery);
                         startActivity(search);
@@ -131,87 +136,148 @@ public class MainActivity extends Activity {
                         mlvTextMatches
                                 .setAdapter(new ArrayAdapter<String>(this,
                                         android.R.layout.simple_list_item_1,
-                                        textMatchList));
-                    }
+                                        textMatchList) {
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        View view = super.getView(position, convertView, parent);
 
+                                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+            /*YOUR CHOICE OF COLOR*/
+                                        textView.setTextColor(Color.WHITE);
+
+                                        return view;
+                                    }
+
+                                    ;
+                                });
+
+                    }
+                    //Result code for various error.
+                } else if (resultCode == RecognizerIntent.RESULT_AUDIO_ERROR) {
+                    showToastMessage("Audio Error");
+                } else if (resultCode == RecognizerIntent.RESULT_CLIENT_ERROR) {
+                    showToastMessage("Client Error");
+                } else if (resultCode == RecognizerIntent.RESULT_NETWORK_ERROR) {
+                    showToastMessage("Network Error");
+                } else if (resultCode == RecognizerIntent.RESULT_NO_MATCH) {
+                    showToastMessage("No Match");
+                } else if (resultCode == RecognizerIntent.RESULT_SERVER_ERROR) {
+                    showToastMessage("Server Error");
                 }
-                //Result code for various error.
-            }else if(resultCode == RecognizerIntent.RESULT_AUDIO_ERROR){
-                showToastMessage("Audio Error");
-            }else if(resultCode == RecognizerIntent.RESULT_CLIENT_ERROR){
-                showToastMessage("Client Error");
-            }else if(resultCode == RecognizerIntent.RESULT_NETWORK_ERROR){
-                showToastMessage("Network Error");
-            }else if(resultCode == RecognizerIntent.RESULT_NO_MATCH){
-                showToastMessage("No Match");
-            }else if(resultCode == RecognizerIntent.RESULT_SERVER_ERROR){
-                showToastMessage("Server Error");
-            }
-        super.onActivityResult(requestCode, resultCode, data);
+                super.onActivityResult(requestCode, resultCode, data);
 
 //         CHECK FROM HERE
-        mlvTextMatches.setClickable(true);
-        mlvTextMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Object o = mlvTextMatches.getItemAtPosition(position);
-                textMatch = (String)o;
+                mlvTextMatches.setClickable(true);
+                mlvTextMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        Object o = mlvTextMatches.getItemAtPosition(position);
+                        text = (String) o;
+                        textMatch = text.replaceAll(" ","%20");
+                        new HttpGetRequest().execute();
 
+                        // Log.e("text",textMatch);
 
-               // Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
-                fetchGif(textMatch);
+                        // Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
+                       //fetchGif();
+                    }
+                });
+
             }
-        });
-
     }
 
 
 
-    private void fetchGif(final String textMatch){
+    private void fetchGif(){
 
-//        Log.e("Debug message :", "Works here 2");
+       Log.e("Debug message :", "Works here 2");
 
-        mDB.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.e("DATA TYPE : ", dataSnapshot.getClass().getName());
-//                Log.e("THIS THING : ", dataSnapshot.getValue().toString());
-
-                // CODE FOR FETCHING FROM DATABASE
-                String english = null;
-                String sign = null;
-
-                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-
-                    if (Objects.equals(((String) messageSnapshot.child("english").getValue()).replaceAll(" ", "").toLowerCase(), textMatch.replaceAll(" ", "").toLowerCase())){
-                        english = (String) messageSnapshot.child("english").getValue();
-                        sign = (String) messageSnapshot.child("url").getValue();
-
-                        Log.e("english : ", english);
-                        Log.e("url : ", sign);
-                    }
-
-
-
-                }
-
+                //Log.e("txt",txt);
+        Log.e("sign",result);
+        Log.e("english",textMatch);
                 Intent intent = new Intent(getApplicationContext(), showGif.class);
-                intent.putExtra("english", english);
-                intent.putExtra("url" , sign);
+                intent.putExtra("english", textMatch);
+                //intent.putExtra("url" , sign);
+                intent.putExtra("sign",result);
                 startActivity(intent);
 
+
+
+
+        }
+
+
+    public class HttpGetRequest extends AsyncTask<String, Void, String> {
+        public static final String REQUEST_METHOD = "GET";
+        public static final int READ_TIMEOUT = 15000;
+        public static final int CONNECTION_TIMEOUT = 15000;
+        @Override
+        protected String doInBackground(String... params){
+            //String stringUrl = params[0];
+
+            String inputLine;
+            String url = "http://172.20.10.8:5000/translate/";
+            url = url.concat(textMatch);
+
+
+            //url = "http://172.20.10.8:5000/translate/" + textMatch;
+            Log.e("url",url);
+            try {
+                //Create a URL object holding our url
+                URL myUrl = new URL(url);
+                //Create a connection
+                HttpURLConnection connection =(HttpURLConnection)
+                        myUrl.openConnection();
+                //Set methods and timeouts
+                connection.setRequestMethod(REQUEST_METHOD);
+                connection.setReadTimeout(READ_TIMEOUT);
+                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+
+                //Connect to our url
+                connection.connect();
+                //Create a new InputStreamReader
+                InputStreamReader streamReader = new
+                        InputStreamReader(connection.getInputStream());
+                //Create a new buffered reader and String Builder
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                //Check if the line we are reading is not null
+                while((inputLine = reader.readLine()) != null){
+                    stringBuilder.append(inputLine);
+                }
+                //Close our InputStream and Buffered reader
+                reader.close();
+                streamReader.close();
+                //Set our result equal to our stringBuilder
+                result = stringBuilder.toString();
+                Log.e("result",result);
+            }
+            catch(IOException e){
+                e.printStackTrace();
+                result = null;
+                Log.e("error",e.toString());
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Error message : ", "Error here 1");
+            if(!result.isEmpty())
+            {
+                Log.e("S",result);
+                Log.e("E",text);
+                Intent intent = new Intent(getApplicationContext(), showGif.class);
+                intent.putExtra("english", text);
+                //intent.putExtra("url" , sign);
+                intent.putExtra("sign",result);
+                startActivity(intent);
             }
-        });
+            return result;
+        }
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
 
-
-
-
+        }
     }
+
+
     //
     /*  Helper method to show the toast message */
     void showToastMessage(String message){
