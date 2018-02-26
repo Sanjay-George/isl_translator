@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
                                         return view;
                                     }
 
-                                    ;
+                                    
                                 });
 
                     }
