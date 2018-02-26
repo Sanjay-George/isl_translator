@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.2.4/gson-2.2.4.iml" filepath="$PROJECT_DIR$/gson-2.2.4/gson-2.2.4.iml" />
       <module fileurl="file://$PROJECT_DIR$/ion-master/ion-master.iml" filepath="$PROJECT_DIR$/ion-master/ion-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/isl_translator.iml" filepath="$PROJECT_DIR$/isl_translator.iml" />
       <module fileurl="file://$PROJECT_DIR$/photo-view/photo-view.iml" filepath="$PROJECT_DIR$/photo-view/photo-view.iml" />
     </modules>
   </component>

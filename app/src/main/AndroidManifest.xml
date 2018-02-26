@@ -3,7 +3,7 @@
     package="com.example.divyaje.voice">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,20 +14,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_voice_recognition">
+            android:label="@string/title_activity_voice_recognition"></activity>
+        <activity
+            android:name=".showGif"
+            android:label="Voice Recognition" />
+        <activity
+            android:name=".SplashScreen"
+            android:label="Voice Recognition">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
-        <activity android:name=".showGif" android:label="Voice Recognition"></activity>
-        <activity android:name=".SplashScreen" android:label="Voice Recognition">
-
-
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-
-
+        <activity
+            android:name=".ServerActivity"
+            android:label="@string/title_activity_voice_recognition">
         </activity>
     </application>
 

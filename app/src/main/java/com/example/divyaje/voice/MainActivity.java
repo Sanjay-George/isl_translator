@@ -20,8 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,7 +27,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -217,8 +214,10 @@ public class MainActivity extends Activity {
             //String stringUrl = params[0];
 
             String inputLine;
-            String url = "http://172.20.10.8:5000/translate/";
-            url = url.concat(textMatch);
+            String ip = getIntent().getStringExtra("ServerIP");
+//            String url = "http://172.20.10.8:5000/translate/";
+            String url = "http://" + ip + ":5000/translate/"+textMatch;
+//            url = url.concat(textMatch);
 
 
             //url = "http://172.20.10.8:5000/translate/" + textMatch;
@@ -237,20 +236,24 @@ public class MainActivity extends Activity {
                 //Connect to our url
                 connection.connect();
                 //Create a new InputStreamReader
-                InputStreamReader streamReader = new
-                        InputStreamReader(connection.getInputStream());
-                //Create a new buffered reader and String Builder
-                BufferedReader reader = new BufferedReader(streamReader);
-                StringBuilder stringBuilder = new StringBuilder();
-                //Check if the line we are reading is not null
-                while((inputLine = reader.readLine()) != null){
-                    stringBuilder.append(inputLine);
+                InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
+                int responseCode = connection.getResponseCode();
+                if(responseCode == HttpURLConnection.HTTP_OK) {
+                    //Create a new buffered reader and String Builder
+                    BufferedReader reader = new BufferedReader(streamReader);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    //Check if the line we are reading is not null
+                    while ((inputLine = reader.readLine()) != null) {
+                        stringBuilder.append(inputLine);
+                    }
+                    //Close our InputStream and Buffered reader
+                    reader.close();
+                    streamReader.close();
+                    //Set our result equal to our stringBuilder
+                    result = stringBuilder.toString();
+                } else {
+                    showToastMessage("Invalid IP address");
                 }
-                //Close our InputStream and Buffered reader
-                reader.close();
-                streamReader.close();
-                //Set our result equal to our stringBuilder
-                result = stringBuilder.toString();
                 Log.e("result",result);
             }
             catch(IOException e){
@@ -268,7 +271,12 @@ public class MainActivity extends Activity {
                 //intent.putExtra("url" , sign);
                 intent.putExtra("sign",result);
                 startActivity(intent);
-            }
+           }
+//          else {
+//                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
+//                intent.putExtra("InvalidIP","Invalid IP entered");
+//                startActivity(intent);
+//            }
             return result;
         }
         protected void onPostExecute(String result){

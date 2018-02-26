@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.divyaje.voice"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,7 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.2-beta2'
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -38,6 +40,7 @@ dependencies {
     //add/compile ion lib
     compile 'com.koushikdutta.ion:ion:2.1.6'
 }
+
 
 
 
