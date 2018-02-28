@@ -12,6 +12,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="151dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
         android:hint="Enter server IP"
         tools:layout_editor_absoluteX="31dp"
         tools:layout_editor_absoluteY="234dp" />
@@ -21,6 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@id/serverInput"
         android:text="Go"
         android:layout_marginTop="21dp" />

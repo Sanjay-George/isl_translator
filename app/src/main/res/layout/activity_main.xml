@@ -9,12 +9,12 @@
     <!--android:background="#000000"-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
 
+    android:background="@android:drawable/screen_background_light_transparent"
+    android:orientation="vertical"
     tools:context="com.example.divyaje.voice.MainActivity">
 
     <Button
@@ -36,14 +36,24 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+
         android:text="Choose options"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <Spinner
+        android:id="@+id/sNoofMatches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sNoofMatches"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
         android:entries="@array/saNoOfMatches"
         android:prompt="@string/sNoOfMatches">
 
@@ -52,16 +62,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="10dp"
         android:text="@string/tvTextMatches"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/lvTextMatches"
+        style="@color/my_spinner_text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+
+        android:background="@android:color/darker_gray"
         android:clickable="true"
-        android:focusable="auto">
+        android:focusable="auto"
+        android:theme="@style/AppTheme"
+        android:visibility="visible">
 
     </ListView>
 
