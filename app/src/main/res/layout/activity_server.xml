@@ -13,12 +13,12 @@
 
         <EditText
             android:id="@+id/serverInput"
-            android:layout_width="600dp"
+            android:layout_width="550dp"
             android:layout_height="43dp"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="0dp"
             android:layout_marginTop="200dp"
             android:layout_weight="1"
@@ -29,18 +29,19 @@
 
         <ImageButton
             android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="204dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:src="@drawable/ic_chevron_right_black_24dp"
             android:text="@string/bt_go"
-            android:textColor="@color/btTextColor" />
+            android:textColor="@color/btTextColor"
+            android:translationZ="5dp" />
     </LinearLayout>
 
 </android.widget.RelativeLayout>

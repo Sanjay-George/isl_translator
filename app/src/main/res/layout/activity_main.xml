@@ -22,10 +22,12 @@
         android:maxHeight="@dimen/btSize"
         android:maxWidth="@dimen/btSize"
         android:onClick="speak"
+        android:padding="15dp"
         android:src="@drawable/ic_mic_black_24dp"
         android:textColor="@color/btTextColor"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
+        android:translationZ="12dp"
         tools:context=".VoiceRecognitionActivity" />
 
     <TextView
@@ -36,11 +38,11 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/tvTextMatches"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/textSize"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <ListView
         android:id="@+id/lvTextMatches"
