@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <!--android:background="#000000"-->
-    <!--android:background="#381bf1"-->
-    <!--android:textColor="#fff"-->
-    <!--android:textColor="#ffffff"-->
-    <!--android:background="#fff"-->
-    <!--android:textColor="#ffffff"-->
-    <!--android:background="#000000"-->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@android:drawable/screen_background_light_transparent"
-    android:orientation="vertical"
     tools:context="com.example.divyaje.voice.MainActivity">
 
     <Button
@@ -22,72 +12,80 @@
         style="@android:style/Widget.Holo.Button.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="25dp"
-        android:elevation="0dp"
+        android:background="@color/colorPrimary"
         android:onClick="speak"
         android:text="@string/btSpeak"
+        android:textColor="@color/btTextColor"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold"
         tools:context=".VoiceRecognitionActivity" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-
-        android:text="Choose options"
-        android:textColor="@android:color/black"
+        android:text="@string/spinner_hint"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/sNoofMatches"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/spinnerBackground"
         android:entries="@array/saNoOfMatches"
-        android:prompt="@string/sNoOfMatches">
+        android:prompt="@string/sNoOfMatches"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold">
 
     </Spinner>
 
     <TextView
+        android:id="@id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/sNoofMatches"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
         android:text="@string/tvTextMatches"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/lvTextMatches"
-        style="@color/my_spinner_text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/btspeak"
+        android:layout_below="@+id/textView2"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
 
-        android:background="@android:color/darker_gray"
+        android:background="@color/spinnerBackground"
         android:clickable="true"
         android:focusable="auto"
-        android:theme="@style/AppTheme"
-        android:visibility="visible">
+        android:textColor="#000000"
+        android:textSize="@dimen/textSize"
+        >
 
     </ListView>
 
 
-</LinearLayout>
+</android.widget.RelativeLayout>
