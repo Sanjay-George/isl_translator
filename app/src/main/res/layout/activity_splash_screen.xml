@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.divyaje.voice.SplashScreen">
+    tools:context="com.example.divyaje.voice.SplashScreen"
+    >
 
 
 
 <include layout="@layout/content_splash_screen" />
-
 
 
 </android.support.design.widget.CoordinatorLayout>

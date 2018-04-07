@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.divyaje.voice"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,6 +30,7 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-auth:11.6.2'
 //    implementation 'com.google.firebase:firebase-messaging:11.6.2'
 //    compile 'com.google.firebase:firebase-core:11.6.2'
+    implementation 'com.android.support:design:26.0.0-beta1'
     compile 'com.google.firebase:firebase-database:11.6.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -41,8 +42,15 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.1.6'
 }
 
-
-
-
-
 apply plugin: 'com.google.gms.google-services'
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.0.2'
+            }
+        }
+    }
+}

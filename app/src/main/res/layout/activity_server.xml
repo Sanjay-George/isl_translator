@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.example.divyaje.voice.ServerActivity">
 
-    <EditText
-        android:id="@+id/serverInput"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="151dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        android:hint="Enter server IP"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="234dp" />
+        <EditText
+            android:id="@+id/serverInput"
+            android:layout_width="600dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="200dp"
+            android:layout_weight="1"
+            android:hint="@string/enter_server_ip"
+            android:textColor="@color/colorAccent"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="234dp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@id/serverInput"
-        android:text="Go"
-        android:layout_marginTop="21dp" />
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="200dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:text="@string/bt_go"
+            android:textColor="@color/btTextColor" />
+    </LinearLayout>
+
 </android.widget.RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,25 +8,28 @@
 
     tools:context="com.example.divyaje.voice.MainActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/btspeak"
         style="@android:style/Widget.Holo.Button.Small"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_button"
+        android:maxHeight="@dimen/btSize"
+        android:maxWidth="@dimen/btSize"
         android:onClick="speak"
-        android:text="@string/btSpeak"
+        android:src="@drawable/ic_mic_black_24dp"
         android:textColor="@color/btTextColor"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
         tools:context=".VoiceRecognitionActivity" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -33,36 +37,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/spinner_hint"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/textSize"
-        android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/sNoofMatches"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/textView"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/spinnerBackground"
-        android:entries="@array/saNoOfMatches"
-        android:prompt="@string/sNoOfMatches"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/textSize"
-        android:textStyle="bold">
-
-    </Spinner>
-
-    <TextView
-        android:id="@id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sNoofMatches"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:text="@string/tvTextMatches"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/textSize"
@@ -78,9 +52,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
 
-        android:background="@color/spinnerBackground"
         android:clickable="true"
-        android:focusable="auto"
+        android:focusable="true"
         android:textColor="#000000"
         android:textSize="@dimen/textSize"
         >

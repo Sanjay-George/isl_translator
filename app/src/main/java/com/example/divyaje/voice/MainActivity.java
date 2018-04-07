@@ -1,22 +1,20 @@
 package com.example.divyaje.voice;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,18 +29,15 @@ import java.util.List;
 import static android.widget.Toast.LENGTH_SHORT;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
-
-    //    private EditText metTextHint;
-    private ListView mlvTextMatches;
-    private Spinner msTextMatches;
-    private Button mbtSpeak;
     public String textMatch;
-    private String promptText = "Speak now";
     public String result;
     public String text;
-
+    private ListView mlvTextMatches;
+//    private Spinner msTextMatches;
+    private ImageButton mbtSpeak;
+    private String promptText = "Speak now";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,25 +45,21 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        metTextHint = findViewById(R.id.etTextHint);
+//      metTextHint = findViewById(R.id.etTextHint);
         mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
-        msTextMatches = findViewById(R.id.sNoofMatches);
+//        msTextMatches = findViewById(R.id.sNoofMatches);
         mbtSpeak = findViewById(R.id.btspeak);
         checkVoiceRecognition();
-
-        /*Initialize database reference*/
-
-
     }
 
     public void checkVoiceRecognition() {
-        // Check if voice recognition is present
+        /*Check if voice recognition is present*/
         PackageManager pm = getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
         if (activities.size() == 0) {
             mbtSpeak.setEnabled(false);
-            mbtSpeak.setText("Voice recognizer not present");
+//          mbtSpeak.setText("Voice recognizer not present");
             Toast.makeText(this, "Voice recognizer not present",
                     LENGTH_SHORT).show();
         }
@@ -93,14 +84,15 @@ public class MainActivity extends Activity {
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
 
         // If number of Matches is not selected then return show toast message
-        if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
+        /*if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
             Toast.makeText(this, "Please select No. of Matches from spinner",
                     LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
-        int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem()
-                .toString());
+        /*int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem()
+                .toString());*/
+        int noOfMatches = 3;
         // Specify how many results you want to receive. The results will be
         // sorted where the first result is the one with higher confidence.
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, noOfMatches);
@@ -115,8 +107,7 @@ public class MainActivity extends Activity {
             //If Voice recognition is successful then it returns RESULT_OK
             if (resultCode == RESULT_OK) {
 
-                ArrayList<String> textMatchList = data
-                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                ArrayList<String> textMatchList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                 if (!textMatchList.isEmpty()) {
                     // If first Match contains the 'search' word
@@ -130,8 +121,7 @@ public class MainActivity extends Activity {
                         startActivity(search);
                     } else {
                         // populate the Matches
-                        mlvTextMatches
-                                .setAdapter(new ArrayAdapter<String>(this,
+                        mlvTextMatches.setAdapter(new ArrayAdapter<String>(this,
                                         android.R.layout.simple_list_item_1,
                                         textMatchList) {
                                     @Override
@@ -140,8 +130,8 @@ public class MainActivity extends Activity {
 
                                         TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-            /*YOUR CHOICE OF COLOR*/
-                                        textView.setTextColor(Color.WHITE);
+                                        /*YOUR CHOICE OF COLOR*/
+                                        /*textView.setTextColor(Color.WHITE);*/
 
                                         return view;
                                     }
@@ -164,7 +154,7 @@ public class MainActivity extends Activity {
                 }
                 super.onActivityResult(requestCode, resultCode, data);
 
-//         CHECK FROM HERE
+//              CHECK FROM HERE
                 mlvTextMatches.setClickable(true);
                 mlvTextMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -187,23 +177,21 @@ public class MainActivity extends Activity {
 
 
     private void fetchGif(){
-
-       Log.e("Debug message :", "Works here 2");
-
-                //Log.e("txt",txt);
+        Log.e("Debug message :", "Works here 2");
+        //Log.e("txt",txt);
         Log.e("sign",result);
         Log.e("english",textMatch);
-                Intent intent = new Intent(getApplicationContext(), showGif.class);
-                intent.putExtra("english", textMatch);
-                //intent.putExtra("url" , sign);
-                intent.putExtra("sign",result);
-                startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), showGif.class);
+        intent.putExtra("english", textMatch);
+        //intent.putExtra("url" , sign);
+        intent.putExtra("sign",result);
+        startActivity(intent);
+    }
 
-
-
-
-        }
-
+    /*  Helper method to show the toast message */
+    void showToastMessage(String message){
+        Toast.makeText(this, message, LENGTH_SHORT).show();
+    }
 
     public class HttpGetRequest extends AsyncTask<String, Void, String> {
         public static final String REQUEST_METHOD = "GET";
@@ -212,22 +200,19 @@ public class MainActivity extends Activity {
         @Override
         protected String doInBackground(String... params){
             //String stringUrl = params[0];
-
             String inputLine;
             String ip = getIntent().getStringExtra("ServerIP");
 //            String url = "http://172.20.10.8:5000/translate/";
             String url = "http://" + ip + ":5000/translate/"+textMatch;
 //            url = url.concat(textMatch);
-
-
-            //url = "http://172.20.10.8:5000/translate/" + textMatch;
+//            url = "http://172.20.10.8:5000/translate/" + textMatch;
             Log.e("url",url);
             try {
                 //Create a URL object holding our url
                 URL myUrl = new URL(url);
                 //Create a connection
                 HttpURLConnection connection =(HttpURLConnection)
-                        myUrl.openConnection();
+                myUrl.openConnection();
                 //Set methods and timeouts
                 connection.setRequestMethod(REQUEST_METHOD);
                 connection.setReadTimeout(READ_TIMEOUT);
@@ -264,6 +249,8 @@ public class MainActivity extends Activity {
 
             if(!result.isEmpty())
             {
+                textMatch = "hello";
+                new HttpGetRequest().execute();
                 Log.e("S",result);
                 Log.e("E",text);
                 Intent intent = new Intent(getApplicationContext(), showGif.class);
@@ -272,11 +259,11 @@ public class MainActivity extends Activity {
                 intent.putExtra("sign",result);
                 startActivity(intent);
            }
-//          else {
-//                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
-//                intent.putExtra("InvalidIP","Invalid IP entered");
-//                startActivity(intent);
-//            }
+          /*else {
+                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
+                intent.putExtra("InvalidIP","Invalid IP entered");
+                startActivity(intent);
+          }*/
             return result;
         }
         protected void onPostExecute(String result){
@@ -284,13 +271,4 @@ public class MainActivity extends Activity {
 
         }
     }
-
-
-    //
-    /*  Helper method to show the toast message */
-    void showToastMessage(String message){
-        //Toast.makeText(this, message, LENGTH_SHORT).show();
-    }
-
-
 }

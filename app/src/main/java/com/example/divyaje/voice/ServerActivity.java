@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class ServerActivity extends AppCompatActivity {
 
     public String serverIP;
-    Button mButton;
+    ImageButton mButton;
     EditText mEdit;
 
     @Override
@@ -24,7 +25,9 @@ public class ServerActivity extends AppCompatActivity {
 //            String errMsg = getIntent().getStringExtra("InvalidIP");
 //        }
 //        Toast.makeText(this, errMsg, LENGTH_SHORT).show();
-        getIP();
+        if(mEdit.getText().toString()!="")
+            getIP();
+        else Toast.makeText(this, "Please enter valid IP", Toast.LENGTH_SHORT).show();
     }
 
     public void getIP(){
