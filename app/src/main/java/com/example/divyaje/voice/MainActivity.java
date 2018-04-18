@@ -249,8 +249,9 @@ public class MainActivity extends AppCompatActivity {
 
             if(!result.isEmpty())
             {
-                textMatch = "hello";
-                new HttpGetRequest().execute();
+                /*For sending dummy request*/
+                /*textMatch = "hello";
+                new HttpGetRequest().execute();*/
                 Log.e("S",result);
                 Log.e("E",text);
                 Intent intent = new Intent(getApplicationContext(), showGif.class);
