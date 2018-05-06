@@ -21,8 +21,8 @@ public class showGif extends AppCompatActivity {
 
         Log.e("Test message : ", "This works");
 
-        TextView text1 = (TextView) findViewById(R.id.textView);
-        ImageView image1 = (ImageView) findViewById(R.id.imageView);
+        TextView text1 = findViewById(R.id.textView);
+        ImageView image1 = findViewById(R.id.imageView);
 
         String url = getIntent().getStringExtra("sign");
         String english = getIntent().getStringExtra("english");
@@ -61,29 +61,4 @@ public class showGif extends AppCompatActivity {
 
 
     }
-
-    /*public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                InputStream input = connection.getInputStream();
-                Bitmap img = BitmapFactory.decodeStream(input);
-                return img;
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }*/
-
 }

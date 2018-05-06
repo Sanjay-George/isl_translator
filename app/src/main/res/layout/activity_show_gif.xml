@@ -28,6 +28,6 @@
         android:paddingHorizontal="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
 
-        android:textColor="#ffffff" />
+        android:textColor="#000" />
 
 </android.widget.RelativeLayout>

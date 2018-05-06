@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //      metTextHint = findViewById(R.id.etTextHint);
-        mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
+        mlvTextMatches = findViewById(R.id.lvTextMatches);
 //        msTextMatches = findViewById(R.id.sNoofMatches);
         mbtSpeak = findViewById(R.id.btspeak);
         checkVoiceRecognition();
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                     public View getView(int position, View convertView, ViewGroup parent) {
                                         View view = super.getView(position, convertView, parent);
 
-                                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                                        TextView textView = view.findViewById(android.R.id.text1);
 
                                         /*YOUR CHOICE OF COLOR*/
                                         /*textView.setTextColor(Color.WHITE);*/
@@ -239,19 +240,27 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showToastMessage("Invalid IP address");
                 }
-                Log.e("result",result);
-            }
-            catch(IOException e){
+            } catch(SocketTimeoutException e){
+                e.printStackTrace();
+                Log.e("error", e.toString());
+            } catch(IOException e){
                 e.printStackTrace();
                 result = null;
                 Log.e("error",e.toString());
             }
+            Log.e("result",result);
 
-            if(!result.isEmpty())
+            if(result.equals("0")){
+                Log.e("error", result);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "Oops! Unable to translate", Toast.LENGTH_LONG).show();
+                    }
+                });
+                return result;
+            } else if(!result.isEmpty())
             {
-                /*For sending dummy request*/
-                /*textMatch = "hello";
-                new HttpGetRequest().execute();*/
                 Log.e("S",result);
                 Log.e("E",text);
                 Intent intent = new Intent(getApplicationContext(), showGif.class);
@@ -260,11 +269,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("sign",result);
                 startActivity(intent);
            }
-          /*else {
-                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
-                intent.putExtra("InvalidIP","Invalid IP entered");
-                startActivity(intent);
-          }*/
             return result;
         }
         protected void onPostExecute(String result){
