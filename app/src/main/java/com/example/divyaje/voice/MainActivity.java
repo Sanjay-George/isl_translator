@@ -84,21 +84,17 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
 
-        // If number of Matches is not selected then return show toast message
-        /*if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
-            Toast.makeText(this, "Please select No. of Matches from spinner",
-                    LENGTH_SHORT).show();
-            return;
-        }*/
-
-        /*int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem()
-                .toString());*/
         int noOfMatches = 3;
         // Specify how many results you want to receive. The results will be
         // sorted where the first result is the one with higher confidence.
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, noOfMatches);
         //Start the Voice recognizer activity for the result.
         startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+    }
+
+    /*  Helper method to show the toast message */
+    void showToastMessage(String message){
+        Toast.makeText(this, message, LENGTH_SHORT).show();
     }
 
     @Override
@@ -111,36 +107,21 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> textMatchList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                 if (!textMatchList.isEmpty()) {
-                    // If first Match contains the 'search' word
-                    // Then start web search.
-                    if (textMatchList.get(0).contains("search")) {
 
-                        String searchQuery = textMatchList.get(0);
-                        searchQuery = searchQuery.replace("search", "");
-                        Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-                        search.putExtra(SearchManager.QUERY, searchQuery);
-                        startActivity(search);
-                    } else {
-                        // populate the Matches
-                        mlvTextMatches.setAdapter(new ArrayAdapter<String>(this,
-                                        android.R.layout.simple_list_item_1,
-                                        textMatchList) {
-                                    @Override
-                                    public View getView(int position, View convertView, ViewGroup parent) {
-                                        View view = super.getView(position, convertView, parent);
+                    mlvTextMatches.setAdapter(new ArrayAdapter<String>(this,
+                            android.R.layout.simple_list_item_1,
+                            textMatchList) {
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            View view = super.getView(position, convertView, parent);
+                            TextView textView = view.findViewById(android.R.id.text1);
+                            return view;
+                        }
 
-                                        TextView textView = view.findViewById(android.R.id.text1);
 
-                                        /*YOUR CHOICE OF COLOR*/
-                                        /*textView.setTextColor(Color.WHITE);*/
+                    });
 
-                                        return view;
-                                    }
-
-                                    
-                                });
-
-                    }
+//                    }
                     //Result code for various error.
                 } else if (resultCode == RecognizerIntent.RESULT_AUDIO_ERROR) {
                     showToastMessage("Audio Error");
@@ -163,36 +144,21 @@ public class MainActivity extends AppCompatActivity {
                         Object o = mlvTextMatches.getItemAtPosition(position);
                         text = (String) o;
                         textMatch = text.replaceAll(" ","%20");
-                        new HttpGetRequest().execute();
 
-                        // Log.e("text",textMatch);
 
-                        // Toast.makeText(getApplicationContext(), textMatch, LENGTH_SHORT).show();
-                       //fetchGif();
+                        try {
+                            new HttpGetRequest().execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showToastMessage("Unable to connect to server. Try again later");
+                        }
+
                     }
                 });
 
             }
     }
 
-
-
-    private void fetchGif(){
-        Log.e("Debug message :", "Works here 2");
-        //Log.e("txt",txt);
-        Log.e("sign",result);
-        Log.e("english",textMatch);
-        Intent intent = new Intent(getApplicationContext(), showGif.class);
-        intent.putExtra("english", textMatch);
-        //intent.putExtra("url" , sign);
-        intent.putExtra("sign",result);
-        startActivity(intent);
-    }
-
-    /*  Helper method to show the toast message */
-    void showToastMessage(String message){
-        Toast.makeText(this, message, LENGTH_SHORT).show();
-    }
 
     public class HttpGetRequest extends AsyncTask<String, Void, String> {
         public static final String REQUEST_METHOD = "GET";
@@ -203,8 +169,16 @@ public class MainActivity extends AppCompatActivity {
             //String stringUrl = params[0];
             String inputLine;
             String ip = getIntent().getStringExtra("ServerIP");
+
+            // REMOVE IP CHECK IF PERMANENT IP ADDRESS
+            if (ip == null){
+//                showToastMessage("Unable to connect to Server. Reconnect");
+                result = null;
+                return result;
+            }
+
 //            String url = "http://172.20.10.8:5000/translate/";
-            String url = "http://" + ip + ":5000/translate/"+textMatch;
+            String url = "http://" + ip + ":5000/translate/"+textMatch;  // CHANGE THIS IF IP FIXED
 //            url = url.concat(textMatch);
 //            url = "http://172.20.10.8:5000/translate/" + textMatch;
             Log.e("url",url);
@@ -239,14 +213,18 @@ public class MainActivity extends AppCompatActivity {
                     result = stringBuilder.toString();
                 } else {
                     showToastMessage("Invalid IP address");
+                    return null;
                 }
             } catch(SocketTimeoutException e){
                 e.printStackTrace();
                 Log.e("error", e.toString());
+                result = null;
+                return null;
             } catch(IOException e){
                 e.printStackTrace();
-                result = null;
                 Log.e("error",e.toString());
+                result = null;
+                return null;
             }
             Log.e("result",result);
 
@@ -269,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("sign",result);
                 startActivity(intent);
            }
-            return result;
+           return result;
         }
         protected void onPostExecute(String result){
             super.onPostExecute(result);
