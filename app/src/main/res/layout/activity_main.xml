@@ -48,12 +48,11 @@
         android:id="@+id/lvTextMatches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btspeak"
+        android:layout_above="@id/hint"
         android:layout_below="@+id/textView2"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-
         android:clickable="true"
         android:focusable="true"
         android:textColor="#000000"
@@ -61,6 +60,36 @@
         >
 
     </ListView>
+
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btspeak"
+        android:layout_alignStart="@+id/lvTextMatches"
+        android:layout_centerHorizontal="false"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="Click the mic button and speak the sentence\nSay 'SPELL' followed by words inorder to spell them out"
+        android:textColor="@color/colorAccent"
+        android:textSize="12dp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btspeak"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/btspeak"
+        android:text="ENG ➝ ISL"
+        android:textColor="#000000"
+        android:textSize="16dp" />
 
 
 </android.widget.RelativeLayout>
