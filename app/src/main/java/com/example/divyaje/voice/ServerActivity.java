@@ -65,11 +65,7 @@ public class ServerActivity extends AppCompatActivity {
             //String stringUrl = params[0];
 
             String inputLine;
-            //  String ip = getIntent().getStringExtra("ServerIP");
-//            String url = "http://172.20.10.8:5000/translate/";
             String url = "http://" + serverIP + ":5000/ ";
-
-            //url = "http://172.20.10.8:5000/translate/" + textMatch;
             Log.e("url",url);
             try {
                 //Create a URL object holding our url

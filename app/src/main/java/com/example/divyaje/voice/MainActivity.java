@@ -177,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 return result;
             }
 
-//            String url = "http://172.20.10.8:5000/translate/";
-            String url = "http://" + ip + ":5000/translate/"+textMatch;  // CHANGE THIS IF IP FIXED
+//            String url = "http://172.20.10.8:5000/engtoisl/";
+            String url = "http://" + ip + ":5000/engtoisl/"+textMatch;  // CHANGE THIS IF IP FIXED
 //            url = url.concat(textMatch);
-//            url = "http://172.20.10.8:5000/translate/" + textMatch;
+//            url = "http://172.20.10.8:5000/engtoisl/" + textMatch;
             Log.e("url",url);
             try {
                 //Create a URL object holding our url

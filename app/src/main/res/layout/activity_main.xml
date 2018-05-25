@@ -68,15 +68,15 @@
         android:layout_above="@+id/btspeak"
         android:layout_alignStart="@+id/lvTextMatches"
         android:layout_centerHorizontal="false"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:inputType="textMultiLine"
-        android:text="Click the mic button and speak the sentence\nSay 'SPELL' followed by words inorder to spell them out"
+        android:text="Click the mic button to speak\nSay 'SPELL' followed by words to spell them out"
         android:textColor="@color/colorAccent"
-        android:textSize="12dp"
+        android:textSize="13dp"
         android:textStyle="normal" />
 
     <TextView
