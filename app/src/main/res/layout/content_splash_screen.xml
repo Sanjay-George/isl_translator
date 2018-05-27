@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/sign" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/sign1" />
 
 </RelativeLayout>
